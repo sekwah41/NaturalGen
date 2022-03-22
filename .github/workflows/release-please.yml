@@ -26,11 +26,21 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
-      - name: Build and publish (release)
+      - name: Build
+        env:
+          IS_RELEASE: ${{ steps.release.outputs.release_created }}
+        run: |
+          # Build
+          ./gradlew build curseforge
+      - name: Publish
         if: ${{ steps.release.outputs.release_created }}
         env:
           CURSE_API: ${{ secrets.CURSE_API }}
           IS_RELEASE: ${{ steps.release.outputs.release_created }}
         run: |
           # Build
-          ./gradlew build curseforge
+          ./gradlew curseforge
+      - uses: actions/upload-artifact@v3
+        with:
+          name: NaturalGen
+          path: build/libs/
