@@ -12,7 +12,7 @@ jobs:
         with:
           command: manifest
       - uses: actions/checkout@v2
-        if: ${{ steps.release.outputs.release_created }}
+        #if: ${{ steps.release.outputs.release_created }}
       - name: Cache Gradle packages
         uses: actions/cache@v2
         if: ${{ steps.release.outputs.release_created }}
