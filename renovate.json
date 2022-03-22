@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "ignoreDeps": ["net.minecraftforge.gradle:ForgeGradle"],
+  "packageRules": [
+    {
+      "commitMessagePrefix": "chore(ci):",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "branch",
+      "groupName": "Deps",
+      "schedule": ["every weekend"],
+      "excludePackageNames": ["net.minecraftforge.gradle:ForgeGradle"]
+    }
+  ]
+}

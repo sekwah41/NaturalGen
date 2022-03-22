@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_16",
+  "package": "com.sekwah.naturalgen.mixin",
+  "refmap": "mixins.naturalgen.refmap.json",
+  "mixins": [
+    "common.BlockMixin",
+    "common.ExtraPropertyMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

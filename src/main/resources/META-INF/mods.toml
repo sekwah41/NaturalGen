@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[38,)"
+issueTrackerURL="https://github.com/sekwah41/NaturalGen/issues"
+license="MIT"
+[[mods]] #mandatory
+    modId="naturalgen"
+    version="${file.jarVersion}"
+    displayName="Natural Gen"
+    displayURL="https://www.curseforge.com/minecraft/mc-mods/naturalgen"
+    authors="Sekwah41"
+    description='''A minecraft mod which adds the is_natural tag for resource packs to allow variation between player placed blocks and naturally generated.'''
+
+[[dependencies.naturalgen]]
+    modId="forge"
+    mandatory=true
+    versionRange="[38,)"
+    ordering="NONE"
+    side="BOTH"
+
+# https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html
+[[dependencies.naturalgen]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18,)"
+    ordering="NONE"
+    side="BOTH"

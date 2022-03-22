@@ -1,0 +1,36 @@
+on:
+  push:
+    branches:
+      - master
+name: release-please
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          command: manifest
+      - uses: actions/checkout@v2
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+      - name: Set up JDK 17
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 17
+      - name: Build and publish (release)
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          CURSE_API: ${{ secrets.CURSE_API }}
+          IS_RELEASE: ${{ steps.release.outputs.release_created }}
+        run: |
+          # Build
+          ./gradlew build curseforge
