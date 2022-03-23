@@ -7,6 +7,12 @@ public class BlocksToInject {
     /**
      * Here cauz mixins are dumb :3
      */
-    public static final List<String> addNaturalTag = List.of("grass_block");
+    public static final List<String> addNaturalTag = List.of(
+            "grass_block",
+            "sand",
+            "dirt",
+            "podzol",
+            "gravel"
+    );
 
 }
