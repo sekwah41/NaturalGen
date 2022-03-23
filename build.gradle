@@ -224,9 +224,6 @@ curseforge {
         addGameVersion '1.18.1'
         addGameVersion '1.18.2'
 
-        relations {
-        }
-
         mainArtifact(jar){
         }
     }
