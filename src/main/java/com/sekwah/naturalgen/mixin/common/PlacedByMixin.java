@@ -18,7 +18,7 @@ public class PlacedByMixin {
     @Inject(method = "setPlacedBy", at = @At("HEAD"))
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, LivingEntity pPlacer, ItemStack pStack, CallbackInfo ci) {
         if(pState.hasProperty(NaturalBlockStateProperties.IS_NATURAL)) {
-            pState.setValue(NaturalBlockStateProperties.IS_NATURAL, false);
+            pLevel.setBlock(pPos, pState.setValue(NaturalBlockStateProperties.IS_NATURAL, false), 2);
         }
     }
 
