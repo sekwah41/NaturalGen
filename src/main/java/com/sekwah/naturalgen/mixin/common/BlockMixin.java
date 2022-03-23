@@ -1,25 +1,31 @@
 package com.sekwah.naturalgen.mixin.common;
 
 import com.sekwah.naturalgen.block.blockstate.NaturalBlockStateProperties;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import com.sekwah.naturalgen.extension.ForceNaturalBlockState;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Block.class)
-public class BlockMixin {
+public abstract class BlockMixin implements ForceNaturalBlockState {
 
-    @Inject(method = "setPlacedBy", at = @At("HEAD"))
-    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, LivingEntity pPlacer, ItemStack pStack, CallbackInfo ci) {
-        if(pState.hasProperty(NaturalBlockStateProperties.IS_NATURAL)) {
-            pState.setValue(NaturalBlockStateProperties.IS_NATURAL, false);
-        }
+    @Shadow protected abstract void registerDefaultState(BlockState pState);
+
+    @Mutable
+    @Shadow @Final protected StateDefinition<Block, BlockState> stateDefinition;
+
+    @Shadow protected abstract void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder);
+
+    @Override
+    public void forceAddIsNatural() {
+        StateDefinition.Builder<Block, BlockState> builder = new StateDefinition.Builder<>((Block) (Object)this);
+        builder.add(NaturalBlockStateProperties.IS_NATURAL);
+        this.createBlockStateDefinition(builder);
+        stateDefinition = builder.create(Block::defaultBlockState, BlockState::new);
+        this.registerDefaultState(stateDefinition.any());
     }
-
 }

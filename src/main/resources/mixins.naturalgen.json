@@ -6,7 +6,8 @@
   "refmap": "mixins.naturalgen.refmap.json",
   "mixins": [
     "common.BlockMixin",
-    "common.ExtraPropertyMixin"
+    "common.EarlyBlockInjectionMixin",
+    "common.PlacedByMixin"
   ],
   "client": [
   ],
