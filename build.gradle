@@ -203,7 +203,7 @@ task deobfJar(type: Jar) {
 configurations.all {
     resolutionStrategy.dependencySubstitution {
         // For more info see https://medium.com/@jonastm/jdk-17-with-dcevm-and-hotswapagent-4fee7095617a on how to enable for java 17
-        substitute module('cpw.mods:securejarhandler') using module('cpw.mods:securejarhandler:0.9.+') because "Fixes support for DCEVM"
+        substitute module('cpw.mods:securejarhandler') using module('cpw.mods:securejarhandler:2.1.+') because "Fixes support for DCEVM"
     }
 }
 
